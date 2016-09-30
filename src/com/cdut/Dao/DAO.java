@@ -71,8 +71,13 @@ public class DAO {
 		return entity;
 		
 	}
-	public <T> List<T> getForList(Class<T> clazz,String sql ,
-			Object...args) throws SQLException{
+	/**
+	 * @param resultSet
+	 * @param values
+	 * @return 
+	 * @throws SQLException
+	 */	
+	public <T> List<T> getForList(Class<T> clazz,String sql ,Object...args) throws SQLException{
 		List<T> list=new ArrayList<>();
 		Connection connection=null;
 		PreparedStatement preparedStatement=null;
@@ -124,6 +129,17 @@ public class DAO {
 		}
 		return list;
 	}
+	
+	
+	/**
+	 * 
+	 * @param clazz
+	 * @param values
+	 * @return
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 */
 	private <T> List<T> transferMapListToBeanList(Class<T> clazz,List<Map<String, Object>> values)
 			throws InstantiationException, IllegalAccessException, InvocationTargetException {
 		List<T> result=new ArrayList<>();	
@@ -167,6 +183,13 @@ public class DAO {
 			}
 			return values;
 	}
+	
+	/**
+	 * 
+	 * @param rs
+	 * @return
+	 * @throws SQLException
+	 */
 	private List<String> getColumnLabel(ResultSet rs) throws SQLException{
 		List<String> labels=new ArrayList<>();
 		ResultSetMetaData rsmd=rs.getMetaData();
