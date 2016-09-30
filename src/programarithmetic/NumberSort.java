@@ -107,6 +107,5 @@ public class NumberSort {
             B[k++] = data[s++];   
         for (int i = p; i <= r; i++)   
             data[i] = B[i];   
-    }   
-  
+    }    
 }
