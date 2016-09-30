@@ -15,6 +15,7 @@ import java.util.Properties;
  */
 public class DBtools {
 	/*static String user="root";
+
 	static String password="admin";
 	static String driverClass="com.mysql.jdbc.Driver";
 	static String dbUrl="jdbc:mysql://localhost/jxgl?useUnicode=true&amp;characterEncoding=UTF-8";*/
