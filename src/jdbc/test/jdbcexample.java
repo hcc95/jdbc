@@ -12,7 +12,7 @@ import org.junit.Test;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 
-public class testConnet {
+public class jdbcexample {
 
 	@Test
 	public void testConnnet() throws SQLException {
