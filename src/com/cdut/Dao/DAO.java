@@ -77,7 +77,7 @@ public class DAO {
 	 * @return 
 	 * @throws SQLException
 	 */	
-	public <T> List<T> getForList(Class<T> clazz,String sql ,Object...args) throws SQLException{
+	public static <T> List<T> getForList(Class<T> clazz,String sql ,Object...args) throws SQLException{
 		List<T> list=new ArrayList<>();
 		Connection connection=null;
 		PreparedStatement preparedStatement=null;
@@ -140,7 +140,7 @@ public class DAO {
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException
 	 */
-	private <T> List<T> transferMapListToBeanList(Class<T> clazz,List<Map<String, Object>> values)
+	private static <T> List<T> transferMapListToBeanList(Class<T> clazz,List<Map<String, Object>> values)
 			throws InstantiationException, IllegalAccessException, InvocationTargetException {
 		List<T> result=new ArrayList<>();	
 		T bean=null;
@@ -167,7 +167,7 @@ public class DAO {
 	 * @return 
 	 * @throws SQLException
 	 */
-	private List<Map<String, Object>> handleResultSetToMapList(ResultSet resultSet) throws SQLException {
+	private static List<Map<String, Object>> handleResultSetToMapList(ResultSet resultSet) throws SQLException {
 		List<Map<String,Object>> values =new ArrayList<>();
 		List<String> columnLabels=getColumnLabel(resultSet);
 		Map<String,Object> map=null;
@@ -190,7 +190,7 @@ public class DAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	private List<String> getColumnLabel(ResultSet rs) throws SQLException{
+	private static List<String> getColumnLabel(ResultSet rs) throws SQLException{
 		List<String> labels=new ArrayList<>();
 		ResultSetMetaData rsmd=rs.getMetaData();
 		for(int i=0;i<rsmd.getColumnCount();i++){
