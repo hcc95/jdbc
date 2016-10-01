@@ -10,7 +10,10 @@ import java.sql.Statement;
 import org.junit.Test;
 import com.cdut.tools.DBtools;
 public class testDB {
-
+	/**
+	 * 测试数据库的连接
+	 * @throws Exception
+	 */
 	@Test
 	public void testDB() throws Exception {
 		Statement st = null;
