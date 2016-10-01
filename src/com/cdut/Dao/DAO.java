@@ -20,7 +20,7 @@ import com.cdut.tools.DBtools;
  */
 public class DAO {
 	
-	public static <T> T get(Class<T> clazz,String sql ,
+	public  <T> T get(Class<T> clazz,String sql ,
 			Object...args) throws SQLException{
 		T entity=null;
 		Connection connection=null;
@@ -71,13 +71,15 @@ public class DAO {
 		return entity;
 		
 	}
+	
+	
 	/**
 	 * @param resultSet
 	 * @param values
 	 * @return 
 	 * @throws SQLException
 	 */	
-	public static <T> List<T> getForList(Class<T> clazz,String sql ,Object...args) throws SQLException{
+	public  <T> List<T> getForList(Class<T> clazz,String sql ,Object...args) throws SQLException{
 		List<T> list=new ArrayList<>();
 		Connection connection=null;
 		PreparedStatement preparedStatement=null;
@@ -140,7 +142,7 @@ public class DAO {
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException
 	 */
-	private static <T> List<T> transferMapListToBeanList(Class<T> clazz,List<Map<String, Object>> values)
+	private  <T> List<T> transferMapListToBeanList(Class<T> clazz,List<Map<String, Object>> values)
 			throws InstantiationException, IllegalAccessException, InvocationTargetException {
 		List<T> result=new ArrayList<>();	
 		T bean=null;
@@ -167,7 +169,7 @@ public class DAO {
 	 * @return 
 	 * @throws SQLException
 	 */
-	private static List<Map<String, Object>> handleResultSetToMapList(ResultSet resultSet) throws SQLException {
+	private  List<Map<String, Object>> handleResultSetToMapList(ResultSet resultSet) throws SQLException {
 		List<Map<String,Object>> values =new ArrayList<>();
 		List<String> columnLabels=getColumnLabel(resultSet);
 		Map<String,Object> map=null;
@@ -190,7 +192,7 @@ public class DAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	private static List<String> getColumnLabel(ResultSet rs) throws SQLException{
+	private  List<String> getColumnLabel(ResultSet rs) throws SQLException{
 		List<String> labels=new ArrayList<>();
 		ResultSetMetaData rsmd=rs.getMetaData();
 		for(int i=0;i<rsmd.getColumnCount();i++){
@@ -200,4 +202,35 @@ public class DAO {
 		
 	}
 	
+	
+	/**
+	 * 
+	 * @param sql
+	 * @param args
+	 * @return
+	 */
+	public <E> E getForValues(String sql,Object...args){
+		Connection connection=null;
+		PreparedStatement preparedStatement=null;
+		ResultSet resultSet=null;
+		try {
+			//1 获取结果集
+			connection=DBtools.connectToDB();
+			preparedStatement=connection.prepareStatement(sql);
+			for(int i=0;i<args.length;i++){
+				preparedStatement.setObject(i+1, args[i]);
+			}
+			resultSet=preparedStatement.executeQuery();
+			
+			if(resultSet.next()){
+				return (E) resultSet.getObject(1);
+			}
+		}catch(Exception e){
+			e.printStackTrace();		
+		}finally{
+			DBtools.releaseDB(resultSet, preparedStatement, connection);
+		}	
+		return null;
+		
+	}
 }
